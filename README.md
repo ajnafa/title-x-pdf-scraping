@@ -13,4 +13,4 @@ for the period October 2017 through July 2022.
 
 ## License
 
-All code is provided as is under an [MIT License](LICENSE.md)
+All code is provided as is under an [MIT License](LICENSE)
