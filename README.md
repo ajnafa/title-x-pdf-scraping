@@ -11,6 +11,11 @@ providers from the [Office of Population
 Affairs](https://opa.hhs.gov/grant-programs/archive/title-x-program-archive/title-x-directory-archive)
 for the period October 2017 through July 2022.
 
+To download the current version of this repository you can execute the
+following command from a desktop terminal
+
+    git clone --recursive https://github.com/ajnafa/title-x-pdf-scraping.git
+
 ## License
 
-All code is provided as is under an [MIT License](LICENSE)
+All code is provided as is under an [MIT License](LICENSE.md)

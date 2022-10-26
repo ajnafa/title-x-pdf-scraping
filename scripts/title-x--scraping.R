@@ -23,7 +23,7 @@ options(
 )
 
 # Source the helper functions
-source("pdf-scraping-helpers.R")
+source("scripts/pdf-scraping-helpers.R")
 
 #------------------------------------------------------------------------------#
 #-----------------------Retrieving the File Locations---------------------------
@@ -91,14 +91,14 @@ pdf_links_df <- pdf_links_df %>%
 plan(sequential)
 
 ## Write the result to a file so we don't have to run this again
-write_rds(pdf_links_df, "title_x_pdf_scraped.rds")
+write_rds(pdf_links_df, "data/title_x_pdf_scraped.rds")
 
 #------------------------------------------------------------------------------#
 #-------------Converting the Scraped Text tables into Data Frames---------------
 #------------------------------------------------------------------------------#
 
 ## Write the result to a file so we don't have to run this again
-pdf_links_df <- read_rds("title_x_pdf_scraped.rds") 
+pdf_links_df <- read_rds("data/title_x_pdf_scraped.rds") 
 
 # Construct tibbles for each scraped page
 title_x_pdf_scraped <- pdf_links_df %>% 
@@ -121,7 +121,7 @@ title_x_pdf_scraped <- title_x_pdf_scraped[-6284, ] %>%
     ))
 
 ## Write the result to a file so we don't have to run this again
-write_rds(title_x_pdf_scraped, "title_x_pdf_scraped_cleaned.rds")
+write_rds(title_x_pdf_scraped, "data/title_x_pdf_scraped_cleaned.rds")
 
 # Combine this into a single data frame
 title_x_df <- bind_rows(
@@ -167,7 +167,7 @@ for (j in 1:nrow(title_x_df_sub)) {
 }
 
 ## Write this to a file
-write_rds(clinic_locations_fixed, "clinic-places-final.rds")
+write_rds(clinic_locations_fixed, "data/clinic-places-final.rds")
 
 # Map the location objects to the original data frame
 title_x_df_geocodes <- title_x_df_sub %>% 
@@ -195,7 +195,7 @@ title_x_full <- title_x_df %>%
 # Write the uncleaned but geocoded data to an rds file
 write_rds(
   title_x_full,
-  "title-x-locations-raw.rds", 
+  "data/title-x-locations-raw.rds", 
   compress = "gz", 
   compression = 9L
   )
@@ -237,7 +237,7 @@ title_x_final <- title_x_full %>%
 # Write the cleaned data to an parquet file
 write_parquet(
   title_x_final,
-  "title-x-locations-monthly.gz.parquet", 
+  "data/title-x-locations-monthly.gz.parquet", 
   compression = "gzip", 
   compression_level = 6L
 )
@@ -254,7 +254,7 @@ title_x_yearly <- title_x_final %>%
 # Write the cleaned yearly data to an parquet file
 write_parquet(
   title_x_yearly,
-  "title-x-locations-yearly.gz.parquet", 
+  "data/title-x-locations-yearly.gz.parquet", 
   compression = "gzip", 
   compression_level = 6L
 )

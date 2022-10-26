@@ -2,3 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
+
+data/title_x_pdf_scraped_cleaned.rds
