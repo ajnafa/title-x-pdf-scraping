@@ -148,23 +148,24 @@ title_x_df_sub <- title_x_df %>%
   # Build the API calls
   mutate(api_call = str_c(street, city, state, sep = ", "))
 
-# Initialize a list to store things in
-clinic_locations_fixed <- list()
-
 # Define the API key
 api_key = "YOU_API_KEY_HERE"
 
+# Initialize parallel api calls
+plan(multisession(workers = 4L))
+
 # Looping over each address and calling the google places api
-for (j in 1:nrow(title_x_df_sub)) {
-  clinic_locations_fixed[[j]] <- google_find_place(
-    input = title_x_df_sub$api_call[j],
+clinic_locations_fixed <- future_map(
+  .x = title_x_df_sub$api_call,
+  ~ google_find_place(
+    input = .x,
     key = api_key,
     inputtype = "textquery",
     fields = c("formatted_address","geometry",
                "id","name","permanently_closed",
                "place_id","types")
   )
-}
+)
 
 ## Write this to a file
 write_rds(clinic_locations_fixed, "data/clinic-places-final.rds")
